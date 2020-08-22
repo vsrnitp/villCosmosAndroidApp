@@ -6,7 +6,8 @@ import {
     Image,
     TouchableWithoutFeedback,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    Alert
   } from 'react-native';
   
   import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -67,7 +68,8 @@ import {
       return(
        
         <ScrollView style={{backgroundColor:'black'}}>
-        <Text style={{padding:5,fontWeight:'bold',color:'#66CC8A',textAlign:'center',fontSize:30}}>
+        <Text style={{padding:5,fontWeight:'bold',color:'#66CC8A',fontSize:30,textAlign:'center'}}>
+        
         <MaterialCommunityIcons name="heart" size={30}/>
         Today's Special
         <MaterialCommunityIcons name="heart" size={30}/>

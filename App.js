@@ -24,13 +24,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './src/components/navigator/bottomNavigator';
 
 
+
 class App extends Component {
   
   render(){
   return (
-    
      <RootNavigator/>
-
    
   )
 }
