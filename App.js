@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component  } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,6 +17,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+
+
 import { NavigationContainer } from '@react-navigation/native';
 
 
@@ -26,6 +28,10 @@ import RootNavigator from './src/components/navigator/bottomNavigator';
 
 
 class App extends Component {
+
+  // UNSAFE_componentWillMount(){
+  //   SplashScreen.hide();
+  // }
   
   render(){
   return (

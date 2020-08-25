@@ -10,6 +10,7 @@ import {
     Alert
   } from 'react-native';
 
+  import SplashScreen from 'react-native-splash-screen';
   import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
   import {connect} from 'react-redux';
   //importing the getList action..
@@ -19,6 +20,7 @@ import {
 
     componentDidMount(){
         this.props.dispatch(getVegetableList());
+        SplashScreen.hide();
       }
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
@@ -15,6 +15,8 @@ import reducers from './src/reducers/rootReducer';
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore);
 
 const RootApp = () =>(
+
+    
     <Provider store={createStoreWithMiddleware(reducers)}>
      <App/>
     </Provider>
