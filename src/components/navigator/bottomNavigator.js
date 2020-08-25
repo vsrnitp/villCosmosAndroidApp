@@ -3,8 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
-import {Text,View} from 'react-native';
+import {Text,View,Image} from 'react-native';
 
 //importing various screens...
 import FastFoodItem from '../fastFood/fastFoodItem';
@@ -14,6 +15,8 @@ import ConfirmFastFoodOrdere from '../fastFood/confirmFastFoodOrder';
 import MasterSearch from '../search/searchBox';
 import VegetableDedicatedPage from '../vegetable/vegetableDedicatedPage';
 import ConfirmVegetableOrder from '../vegetable/confirmVegetableOrder';
+import UserProfile from '../user/userProfile';
+import UpdateUserProfile from '../user/updateUserProfile';
 
 
 const Drawer = createDrawerNavigator();
@@ -23,9 +26,9 @@ const Stack  = createStackNavigator();
  const BottomNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Fast Food"
+      initialRouteName="Vegetable"
       tabBarOptions={{
-        activeTintColor: '#e91e64',
+        activeTintColor: 'teal',
       }}
     >
       <Tab.Screen
@@ -51,7 +54,7 @@ const Stack  = createStackNavigator();
       />
       <Tab.Screen
         name="search"
-        component={MasterSearch}
+        component={SearchStackNavigator}
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({ color, size }) => (
@@ -63,11 +66,20 @@ const Stack  = createStackNavigator();
   );
 }
 
-//preparing a basic component (testing)...
+//preparing a basic component (Header for the side navigation)...
+
 const Header = () => {
   return(
-    <View>
-      <Text>Village Cosmos</Text>
+    <View style={{   alignItems: 'center',
+    justifyContent: 'center',}}>
+      <Text style={{fontWeight:'bold',color:'teal',textAlign:'center',padding:3,fontSize:25}}>Village Cosmos</Text>
+      <Text style={{fontWeight:'bold',color:'black',textAlign:'center',padding:8,fontSize:15}}>All the details about village cosmos....
+      An api should be made at the back end that will be populated with all the details of village 
+      cosmos app and it should be called here. Api should be made so that it remains dynamic and should keep on changing as 
+      directed from the server.
+      </Text>
+    <Image source={{uri:'https://i.ibb.co/MC5JqcK/ic-launcher.png'}} style={{width:'95%',height:'50%',marginTop:20}}/>
+    <Text style={{fontSize:15,fontWeight:'bold',padding:15}}>Happy shopping!</Text>
     </View>
   )
 }
@@ -78,15 +90,24 @@ const FinalNavigator = () => {
     <Drawer.Navigator initialRouteName = "Home"
     drawerStyle={{
       backgroundColor:'#F0FFF0',
+      
     }}
     drawerContentOptions={{
-      activeTintColor: '#e91e63',
+      activeTintColor: 'teal',
     }}
     >
-        <Drawer.Screen name="Village cosmos" component={Header}/>
-        <Drawer.Screen name="Home" component={BottomNavigator} options={{drawerIcon:() => 
-          <MaterialCommunityIcons name="home" />
+        <Drawer.Screen name="Village cosmos" component={Header}
+        options={{drawerIcon:() => 
+          <MaterialCommunityIcons name="compass-rose" style={{fontSize:25}}/>
         }}/>
+        <Drawer.Screen name="Home" component={BottomNavigator} options={{drawerIcon:() => 
+          <MaterialCommunityIcons name="home" style={{fontSize:25}}/>
+        }}/>
+        <Drawer.Screen name="User" component={UserStackNavigator} 
+        options={{drawerIcon:() => 
+          <Ionicons name="person" style={{fontSize:25}}/>
+        }}/>
+        
     </Drawer.Navigator>
   )
 }
@@ -110,6 +131,29 @@ const VegetableStackNavigator = () => {
       <Stack.Screen name="VegetableDedicatedPage" component={VegetableDedicatedPage} options={{headerShown:false}}/>
       <Stack.Screen name="confirmVegetableOrder" component={ConfirmVegetableOrder} options={{headerShown:false}}/>
     </Stack.Navigator>
+  )
+}
+
+//search stack navigator....
+const SearchStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="search" component={MasterSearch} options={{headerShown:false}}/>
+      <Stack.Screen name="VegetableDedicatedPage" component={VegetableDedicatedPage} options={{headerShown:false}}/>
+      <Stack.Screen name="confirmVegetableOrder" component={ConfirmVegetableOrder} options={{headerShown:false}}/>
+      <Stack.Screen name="FastFoodDedicatedPage" component={FastFoodDedicatedPage} options={{headerShown:false}}/>
+      <Stack.Screen name="confirmFastFoodOrder" component={ConfirmFastFoodOrdere} options={{headerShown:false}}/>
+    </Stack.Navigator>
+  )
+}
+
+//userProfile stack navigator....
+const UserStackNavigator = () => {
+  return(
+  <Stack.Navigator>
+    <Stack.Screen name="User Profile" component={UserProfile} options={{headerShown:false}}/>
+    <Stack.Screen name="Update User Profile" component={UpdateUserProfile} options={{headerShown:false}}/>
+  </Stack.Navigator>
   )
 }
 

@@ -50,8 +50,14 @@ class MasterSearch extends Component{
 renderFastFoodSearchData = () => (
     this.state.fastFoodSearchData ? 
         this.state.fastFoodSearchData.map((item)=>(
-            <View key = {item.id}>
-            <TouchableOpacity delayPressIn={0}>
+            
+            <TouchableOpacity delayPressIn={0} key={item.id} onPress={()=>this.props.navigation.navigate('FastFoodDedicatedPage',{
+                itemId:item._id,
+                itemName:item.productName,
+                itemDescription:item.productDescription,
+                itemImageUri:item.productImgUri,
+                itemPrice:item.productPrice
+              })}>
             <View style={{flex:1,flexDirection:'column'}}>
                 <Text style={{fontWeight:'bold', fontSize:20,paddingBottom:5}}>{item.productName}</Text>
                 <Text style={{color:'grey',fontSize:15,paddingBottom:5}}>{item.productDescription}</Text>
@@ -68,7 +74,7 @@ renderFastFoodSearchData = () => (
                 }}
                 />
                 </TouchableOpacity>
-            </View>
+          
         ))
         :
         <Text>{this.state.hint}</Text>
@@ -79,8 +85,14 @@ renderFastFoodSearchData = () => (
 renderVegetableSearchData = () => (
     this.state.vegetableSearchData ? 
         this.state.vegetableSearchData.map((item)=>(
-            <View key = {item.id}>
-            <TouchableOpacity delayPressIn={0}>
+            
+            <TouchableOpacity delayPressIn={0} key={item.id} onPress={()=>this.props.navigation.navigate('VegetableDedicatedPage',{
+                itemId:item._id,
+                itemName:item.productName,
+                itemDescription:item.productDescription,
+                itemImageUri:item.productImgUri,
+                itemPrice:item.productPrice
+              })}>
             <View style={{flex:1,flexDirection:'column'}}>
                 <Text style={{fontWeight:'bold', fontSize:20,paddingBottom:5}}>{item.productName}</Text>
                 <Text style={{color:'grey',fontSize:15,paddingBottom:5}}>{item.productDescription}</Text>
@@ -97,7 +109,7 @@ renderVegetableSearchData = () => (
                 }}
                 />
                 </TouchableOpacity>
-            </View>
+           
         ))
         :
         <Text></Text>

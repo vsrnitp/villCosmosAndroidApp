@@ -63,14 +63,17 @@ import {
                 <Text style={{color:'red',padding:3,fontWeight:'bold',fontSize:20,paddingBottom:30}}>Total Billing Amount - Rs.{totalBill}</Text>
 
                 {/* Confirm order button */}
+                {/**Making it disabled for now..... */}
+                {/** 
                 {this.state.showButton && 
                 <TouchableOpacity delayPressIn={0} onPress={()=>this.placeOrder(itemName,itemPrice,quantity,address,mobileNo,totalBill)}>
                 <View style={{backgroundColor:'darkgreen',paddingVertical:12,paddingHorizontal:25,borderRadius:25}}>
                     <Text style={{color:'white',fontSize:18}}>Confirm Order!</Text>
                 </View>
-                </TouchableOpacity>
+                </TouchableOpacity> 
                 }
-
+              */}
+              <Text style={{fontSize:25,color:'red'}}>We will very soon operate for fast food also.....</Text>
                 <Text style={{color:'green',fontWeight:'bold',padding:25,fontSize:15}}>{this.state.confirmationAfterPlacingOrder}</Text>
             </View>
           </ScrollView>
