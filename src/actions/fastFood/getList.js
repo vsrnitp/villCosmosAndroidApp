@@ -7,7 +7,7 @@ export function getFastFoodList(){
     const request = axios.get(`${URL}/fastFoodList`).then(response => {
          const fastFood = [];
         
-
+        
          for(let key in response.data){
              fastFood.push({
                  ...response.data[key],

@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
-import {Text,View,Image} from 'react-native';
+import {Text,View,Image, Alert} from 'react-native';
 
 //importing various screens...
 import FastFoodItem from '../fastFood/fastFoodItem';
@@ -17,11 +17,14 @@ import VegetableDedicatedPage from '../vegetable/vegetableDedicatedPage';
 import ConfirmVegetableOrder from '../vegetable/confirmVegetableOrder';
 import UserProfile from '../user/userProfile';
 import UpdateUserProfile from '../user/updateUserProfile';
+import Covid from '../../components/currentNews/covid';
 
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack  = createStackNavigator();
+
+
 
  const BottomNavigator = () => {
   return (
@@ -69,6 +72,7 @@ const Stack  = createStackNavigator();
 //preparing a basic component (Header for the side navigation)...
 
 const Header = () => {
+ 
   return(
     <View style={{   alignItems: 'center',
     justifyContent: 'center',}}>
@@ -106,6 +110,9 @@ const FinalNavigator = () => {
         <Drawer.Screen name="User" component={UserStackNavigator} 
         options={{drawerIcon:() => 
           <Ionicons name="person" style={{fontSize:25}}/>
+        }}/>
+        <Drawer.Screen name="News" component={NewsStackNavigator} options={{drawerIcon:() => 
+        <Ionicons name="newspaper" style={{fontSize:25}}/>
         }}/>
         
     </Drawer.Navigator>
@@ -154,6 +161,15 @@ const UserStackNavigator = () => {
     <Stack.Screen name="User Profile" component={UserProfile} options={{headerShown:false}}/>
     <Stack.Screen name="Update User Profile" component={UpdateUserProfile} options={{headerShown:false}}/>
   </Stack.Navigator>
+  )
+}
+
+//latest News stack navigator.....
+const NewsStackNavigator = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="Covid" component={Covid} options={{headerShown:false}}/>
+    </Stack.Navigator>
   )
 }
 
