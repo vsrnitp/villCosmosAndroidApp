@@ -1,0 +1,7 @@
+Building a simple food ordering app 
+Not applying authentication logic as of now
+
+image upload bucket - https://imgbb.com/
+
+api endpoints - https://villCosmos.villagecosmos.repl.co
+
