@@ -18,7 +18,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
       userEmail:'',
       userAddress:'',
       imgUri:'',
-      saveConfirmation:''
+      saveConfirmation:'',
     };
   }
 
@@ -60,8 +60,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
        // alert(response.customButton);
       } else {
         let source = response;
-        // You can also display the image using data:
-        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        //here we will resize the image....
         this.setState({
           filePath: source,
           showButton:false,
@@ -132,12 +131,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
         console.log(e);
       }
        //saving img uri to the local async storage...
+       //here we will apply the logic for the image uri to save to the cloud.....
        try {
         await AsyncStorage.setItem('filePath', JSON.stringify(this.state.filePath))
        // console.log('I ran')
       } catch (e) {
         // saving error
         console.log(e);
+       
       }
   }
 
@@ -212,6 +213,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
       } catch(e) {
         // error reading value
       }
+
+      //here we will apply the logic for the image uri to be fetched from the cloud....
       try {
         const imgUri = await AsyncStorage.getItem('filePath')
         if(imgUri !== null) {
@@ -219,6 +222,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
         }
       } catch(e) {
         // error reading value
+        console.log(e);
       }
   }
 
@@ -246,12 +250,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
           source={{ uri: this.state.filePath.path}} 
           style={{width: 100, height: 100}} />*/}
           <Text style={{color:'teal',fontSize:20,fontWeight:'bold',padding:8}}>Welcome {this.state.userName}</Text>
+          {!this.state.imageSizeIsTooLarge &&
           <Image
             source={{
               uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
             }}
             style={{ width: 200, height: 200,borderRadius:150 }}
           />
+          }
           {this.state.showButton && 
             <TouchableOpacity delayPressIn={0} onPress={this.chooseFile.bind(this)}>
             <View style={{backgroundColor:'teal',paddingVertical:12,paddingHorizontal:25,borderRadius:25}}>

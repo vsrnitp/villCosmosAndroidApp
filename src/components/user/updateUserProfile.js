@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
       userEmail:'',
       userAddress:'',
       imgUri:'',
-      saveConfirmation:''
+      saveConfirmation:'',
     };
   }
 
@@ -167,13 +167,16 @@ import AsyncStorage from '@react-native-community/async-storage';
           style={{width: 100, height: 100}} />*/}
           <Text style={{color:'teal',fontSize:20,fontWeight:'bold',padding:8}}>Edit Your Profile!</Text>
           <Text style={{color:'teal',fontSize:20,fontWeight:'bold',padding:8}}>Welcome {this.state.userName}</Text>
+          {!this.state.imageSizeIsTooLarge &&
           <Image
             source={{
               uri: 'data:image/jpeg;base64,' + this.state.filePath.data,
             }}
             style={{ width: 200, height: 200,borderRadius:150 }}
           />
-          {this.state.showButton && 
+          }
+          
+          {this.state.showButton &&
             <TouchableOpacity delayPressIn={0} onPress={this.chooseFile.bind(this)}>
             <View style={{backgroundColor:'teal',paddingVertical:12,paddingHorizontal:25,borderRadius:25}}>
                 <Text style={{color:'white',fontSize:18}}>Upload Avatar!!</Text>
@@ -213,16 +216,15 @@ import AsyncStorage from '@react-native-community/async-storage';
             />}
             
 
-            {this.state.showSaveDataButton && 
+            {this.state.showSaveDataButton &&
                 <TouchableOpacity delayPressIn={0} onPress={this.saveAndRetriveData}>
                 <View style={{backgroundColor:'teal',paddingVertical:12,paddingHorizontal:25,borderRadius:25,marginTop:10}}>
                     <Text style={{color:'white',fontSize:18}}>Save Your Data!!</Text>
                 </View>
                 </TouchableOpacity> 
             }
-
-                <Text style={{fontWeight:'bold',color:'green',padding:10,fontSize:18}}>{this.state.saveConfirmation}</Text>
-         
+              
+            <Text style={{fontWeight:'bold',color:'green',padding:10,fontSize:18,textAlign:'center'}}>{this.state.saveConfirmation}</Text>
           
         </View>
       </View>
