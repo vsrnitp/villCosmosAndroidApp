@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, View, Text,ScrollView,StyleSheet,Image, TouchableOpacity,TextInput, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 class VegetableDedicatedPage extends Component {
     state={
@@ -7,7 +9,8 @@ class VegetableDedicatedPage extends Component {
         mobileNo:'',
         address:'Enter Address to know if item is available or not!',
         deliverable:'red',
-        validate:''
+        validate:'',
+        cartAddress:'',
     }
 
     handleQuantity = (text) => {
@@ -20,13 +23,34 @@ class VegetableDedicatedPage extends Component {
     }
     handleAddress = (text) => {
         var initialSuccess = 'Congratulations! This item is deliverable in ';
-        if(text=='chunni'||text=='chuni'||text=='Chunni'||text=='Chuni'){this.setState({address:initialSuccess+text,deliverable:'green'})}
+        if(text=='chunni'||text=='chuni'||text=='Chunni'||text=='Chuni'){this.setState({address:initialSuccess+text,deliverable:'green',cartAddress:text})}
         else if(text==''){this.setState({address:'Enter Address to know if item is available or not!',deliverable:'red'})}
         else this.setState({address:'Searching availability database...',deliverable:'yellow'})
     }
-    placeOrder = () =>{
-        Alert.alert('Order Placed!')
-    }
+    addToCart = (itemName,itemPrice,Quantity,address,mobileNumber,TotalBill) => {
+        // Alert.alert('Your order of '+itemName+' has been placed successfully!')
+        //make a post request to the axios to submit the order and change the state  accordingly....
+        var confirmation = null;
+         confirmation = axios.post(`https://villCosmos.vsrnitp.repl.co/api/cart/orderPlace/confirm`,{
+            "productName":itemName,
+            "productPrice":itemPrice,
+            "productQuantity":Quantity,
+            "deliveryAddress":this.state.cartAddress,
+            "customerMobileNo":mobileNumber,
+            "totalBillingAmount":TotalBill
+        }).then(Alert.alert('Successfully added to cart!')
+        )
+        .catch(e=>Alert.alert('No internet!'));
+        //here save the mobile no of orderer to async storage and then call that in the cart page to call the APIs...
+        if(confirmation)
+        try {
+             AsyncStorage.setItem('ordereMobNo', mobileNumber)
+           // console.log('I ran')
+          } catch (e) {
+            // saving error
+            console.log(e);
+          }
+     }
  
     render(){
 
@@ -64,7 +88,7 @@ class VegetableDedicatedPage extends Component {
             </View>
 
             <View style={{alignItems:'center',justifyContent:'center'}}>
-            <View><Text style={{color:'white',padding:2,fontWeight:'bold'}}>Ordered Quantity - {' '}{this.state.quantity}</Text></View>
+            <View><Text style={{color:'white',padding:2,fontWeight:'bold'}}>Ordered Quantity - {' '}{this.state.quantity} kg</Text></View>
             <View><Text style={{color:'white',padding:2,fontWeight:'bold'}}>TotalBill - {' '}{itemPrice}*{this.state.quantity}{' '}={' '}{TotalBill}</Text></View>
             <View style={{paddingBottom:10}}>
             <TextInput style={{color:'black',height:50,width:300,fontSize:18,backgroundColor:'white',borderRadius:3}}
@@ -89,9 +113,10 @@ class VegetableDedicatedPage extends Component {
             onChangeText={this.handleAddress}
             />
            </View>
-           <View style={{paddingBottom:8}}><Text style={{color:this.state.deliverable,fontWeight:'bold'}}>{this.state.address}</Text></View>
+           <View style={{paddingBottom:8}} ><Text style={{color:this.state.deliverable,fontWeight:'bold'}}>{this.state.address}</Text></View>
 
             {/*Making a button to place order*/}
+            <View style={{flex: 1, flexDirection: 'row'}}>
             <TouchableOpacity delayPressIn={0} onPress={()=>{if(this.state.quantity !=0 && this.state.mobileNo != '' && this.state.address != '') { this.props.navigation.navigate('confirmVegetableOrder',{
                 itemId:itemId,
                 itemName:itemName,
@@ -109,6 +134,19 @@ class VegetableDedicatedPage extends Component {
                 <Text style={{color:'white',fontSize:18}}>Place Order!</Text>
             </View>
             </TouchableOpacity>
+
+             {/*Making a button to add to cart */}
+             <TouchableOpacity delayPressIn={0} onPress={()=>{if(this.state.quantity !=0 && this.state.mobileNo != '' && this.state.address != '')
+             {this.addToCart(itemName,itemPrice,Quantity,address,mobileNumber,TotalBill)}
+             else {this.setState({validate:'Please enter all the fields!'})}
+         }}>
+             <View style={{backgroundColor:'darkgreen',paddingVertical:12,paddingHorizontal:25,borderRadius:25,marginLeft:5}}>
+                 <Text style={{color:'white',fontSize:18}}>Add to Cart! {' '}
+                 <MaterialCommunityIcons name="cart" size={18} color={'white'}/>
+                 </Text>
+             </View>
+             </TouchableOpacity> 
+             </View>
 
             <Text style={{paddingTop:5,color:'red'}}>{this.state.validate}</Text>
             </View>

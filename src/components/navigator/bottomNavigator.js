@@ -18,6 +18,7 @@ import ConfirmVegetableOrder from '../vegetable/confirmVegetableOrder';
 import UserProfile from '../user/userProfile';
 import UpdateUserProfile from '../user/updateUserProfile';
 import Covid from '../../components/currentNews/covid';
+import MasterCart from '../cart/masterCart';
 
 
 const Drawer = createDrawerNavigator();
@@ -54,6 +55,16 @@ const Stack  = createStackNavigator();
             <MaterialCommunityIcons name="fruit-watermelon" color={color} size={size} />
           ),
         }}
+      />
+      <Tab.Screen
+      name="Cart"
+      component={MasterCart}
+      options={{
+        tabBarLabel: 'Cart',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="cart" color={color} size={size} />
+          ),
+      }}
       />
       <Tab.Screen
         name="search"
